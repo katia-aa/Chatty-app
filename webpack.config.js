@@ -7,6 +7,7 @@ module.exports = {
     'webpack-dev-server/client?http://localhost:3000',
     './src/index.jsx'
   ],
+
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.js',
