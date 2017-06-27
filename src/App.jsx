@@ -1,10 +1,18 @@
 import React, {Component} from 'react';
 
+
 import Chatbar from './Chatbar.jsx';
 import MessageList from './MessageList.jsx';
 
 
+
 class App extends React.Component {
+
+  addMessage(newMessage) {
+    newMessage.id = this.state.messages.length + 1 || 1;
+    this.setState({messages: this.state.messages.concat(newMessage)})
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -47,7 +55,7 @@ class App extends React.Component {
         <main className="messages">
           <MessageList messages={this.state.messages}/>
         </main>
-        <Chatbar name={this.state.currentUser.name} />
+        <Chatbar onMessage={this.addMessage.bind(this)} name={this.state.currentUser.name} />
       </div>
     );
   }
