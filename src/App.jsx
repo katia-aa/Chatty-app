@@ -1,3 +1,5 @@
+const uuidv4 = require('uuid/v4');
+
 import React, {Component} from 'react';
 
 
@@ -9,8 +11,7 @@ import MessageList from './MessageList.jsx';
 class App extends React.Component {
 
   addMessage(newMessage) {
-    newMessage.id = this.state.messages.length + 1 || 1;
-    this.setState({messages: this.state.messages.concat(newMessage)})
+    newMessage.id = uuidv4()
     //send message to the WebSocket
     this.socket.send(JSON.stringify(newMessage))
   }
@@ -19,18 +20,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       currentUser: {name: "Bob"}, // optional. if currentUser is not defined, it means the user is Anonymous
-      messages: [
-        {
-          id: 1,
-          username: "Bob",
-          content: "Has anyone seen my marbles?",
-        },
-        {
-          id: 2,
-          username: "Anonymous",
-          content: "No, I think you lost them. You lost your marbles Bob. You lost them for good."
-        }
-      ]
+      messages: []
     };
   }
 
@@ -38,6 +28,13 @@ class App extends React.Component {
     //connect React app to the server (initiate the connection)
     this.socket = new WebSocket("ws://localhost:5657");
     console.log('Connected to server');
+
+
+    this.socket.onmessage = (event) => {
+      let data = JSON.parse(event.data);
+      this.setState({messages: this.state.messages.concat(data)})
+    }
+
   }
 
 
