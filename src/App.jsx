@@ -11,6 +11,8 @@ class App extends React.Component {
   addMessage(newMessage) {
     newMessage.id = this.state.messages.length + 1 || 1;
     this.setState({messages: this.state.messages.concat(newMessage)})
+    //send message to the WebSocket
+    this.socket.send(JSON.stringify(newMessage))
   }
 
   constructor(props) {
