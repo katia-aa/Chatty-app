@@ -13,6 +13,7 @@ class Chatbar extends Component {
     this.handleUsernameChange = this.handleUsernameChange.bind(this);
     this.handleMessageChange = this.handleMessageChange.bind(this);
     this.handleKeydownEvents = this.handleKeydownEvents.bind(this);
+    
   }
 
 
@@ -26,7 +27,7 @@ class Chatbar extends Component {
 
   handleKeydownEvents(e) {
     if (e.keyCode === 13 && this.state.message !== '') { // if Enter is pressed
-      //let messageContent = {content: this.props.onMessage($(this).val())};
+
       let messageContent = this.state.message;
       let userName = this.state.username || "Anonymous"; //get user name OR if empty, set it to "Anonymous"
 
