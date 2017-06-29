@@ -20,7 +20,8 @@ wss.on('connection', (ws) => {
   //recieve message from App
   ws.on('message', function incoming(data) {
     let message = JSON.parse(data);
-    console.log(`User ${message.id} ${message.username} said ${message.content}`);
+    console.log(`Type: ${message.type} Message ID: ${message.id} Username: ${message.username} Message-content: ${message.content}`);
+
 
     // Broadcast to everyone else.
     wss.clients.forEach(function each(client) {

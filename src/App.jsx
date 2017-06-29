@@ -9,17 +9,35 @@ class App extends React.Component {
 
   addMessage(newMessage) {
     newMessage.id = uuidv4()
+    newMessage.username = this.state.currentUser.name
+    newMessage.type = 'postMessage'
     //send message to the WebSocket
     this.socket.send(JSON.stringify(newMessage))
   }
 
+  addUsername(newUser) {
+    this.socket.send(JSON.stringify({
+        type: 'postNotification',
+        username: newUser,
+        content: `${this.state.currentUser.name} has changed their name to ${newUser}.`
+      })
+    )
+    this.setState({currentUser: {name: newUser} })
+  }
+
+
   constructor(props) {
     super(props);
     this.state = {
-      currentUser: {name: "Bob"}, // optional. if currentUser is not defined, it means the user is Anonymous
+      currentUser: {name: "bob"},
       messages: []
     };
+
+    this.addMessage = this.addMessage.bind(this)
+    this.addUsername = this.addUsername.bind(this)
   }
+
+
 
   componentDidMount() {
     //connect React app to the server (initiate the connection)
@@ -30,6 +48,7 @@ class App extends React.Component {
     this.socket.onmessage = (event) => {
       let data = JSON.parse(event.data);
       this.setState({messages: this.state.messages.concat(data)})
+      //console.log(data);
     }
 
   }
@@ -44,7 +63,7 @@ class App extends React.Component {
         <main className="messages">
           <MessageList messages={this.state.messages}/>
         </main>
-        <Chatbar onMessage={this.addMessage.bind(this)} name={this.state.currentUser.name} />
+        <Chatbar onMessage={this.addMessage} onUserChange={this.addUsername} />
       </div>
     );
   }
