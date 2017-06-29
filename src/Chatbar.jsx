@@ -6,7 +6,7 @@ class Chatbar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: this.props.name,
+      username: '',
       message: ''
     };
 
@@ -25,11 +25,10 @@ class Chatbar extends Component {
   }
 
   handleKeydownEvents(e) {
-    if (e.keyCode === 13) { // if Enter is pressed
-
+    if (e.keyCode === 13 && this.state.message !== '') { // if Enter is pressed
       //let messageContent = {content: this.props.onMessage($(this).val())};
       let messageContent = this.state.message;
-      let userName = this.state.username; //get user name
+      let userName = this.state.username || "Anonymous"; //get user name OR if empty, set it to "Anonymous"
 
       //message action
       this.props.onMessage({
