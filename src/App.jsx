@@ -29,8 +29,9 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUser: {name: "bob"},
-      messages: []
+      currentUser: {name: "Anonymous"},
+      messages: [],
+      usersOnline: 0
     };
 
     this.addMessage = this.addMessage.bind(this)
@@ -38,17 +39,22 @@ class App extends React.Component {
   }
 
 
-
   componentDidMount() {
     //connect React app to the server (initiate the connection)
     this.socket = new WebSocket("ws://localhost:5657");
     console.log('Connected to server');
 
+    this.socket.onopen = (e) => {
+      console.log("eeee", e);
+      this.socket.onmessage = (event) => {
+        let data = JSON.parse(event.data);
+        if (data.type === "usercount") {
+          this.setState({usersOnline: data.usersOnline})
+        }
 
-    this.socket.onmessage = (event) => {
-      let data = JSON.parse(event.data);
-      this.setState({messages: this.state.messages.concat(data)})
-      //console.log(data);
+        this.setState({messages: this.state.messages.concat(data)})
+
+      }
     }
 
   }
@@ -59,6 +65,7 @@ class App extends React.Component {
       <div>
         <nav className="navbar">
           <a href="/" className="navbar-brand">Chatty</a>
+          <h3 className="userscount">Users Online: {this.state.usersOnline}</h3>
         </nav>
         <main className="messages">
           <MessageList messages={this.state.messages}/>

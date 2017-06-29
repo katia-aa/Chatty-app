@@ -6,7 +6,11 @@ class MessageList extends Component {
 
   render() {
     let messages = this.props.messages.map((msg) => {
-      return <Message key={msg.id} username={msg.username} messageContent={msg.content}/>
+      if (msg.type === 'incomingMessage') {
+        return <Message key={msg.id} username={msg.username} messageContent={msg.content}/>
+      } else {
+        return <div className="message system">{msg.content}</div>
+      }
     });
 
     return (

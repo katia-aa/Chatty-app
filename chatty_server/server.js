@@ -14,14 +14,37 @@ const server = express()
 // Create the WebSockets server
 const wss = new SocketServer({ server });
 
+
+
 wss.on('connection', (ws) => {
   console.log('Client connected');
+
+
+  wss.clients.forEach(function each(client) {
+
+      client.send(JSON.stringify({
+        "type": "usercount",
+         "usersOnline" : wss.clients.size
+     }));
+  });
+
 
   //recieve message from App
   ws.on('message', function incoming(data) {
     let message = JSON.parse(data);
     console.log(`Type: ${message.type} Message ID: ${message.id} Username: ${message.username} Message-content: ${message.content}`);
 
+    switch(message.type) {
+      case "postMessage":
+        message.type = 'incomingMessage';
+        break;
+      case "postNotification":
+        message.type = 'incomingNotification';
+        break;
+      default:
+        // show an error in the console if the message type is unknown
+        throw new Error("Unknown event type " + message.type);
+    }
 
     // Broadcast to everyone else.
     wss.clients.forEach(function each(client) {
@@ -34,5 +57,18 @@ wss.on('connection', (ws) => {
 
 
   // Set up a callback for when a client closes the socket. This usually means they closed their browser.
-  ws.on('close', () => console.log('Client disconnected'));
+  ws.on('close', () => {
+
+    wss.clients.forEach(function each(client) {
+
+        client.send(JSON.stringify({
+          "type": "usercount",
+           "usersOnline" : wss.clients.size
+       }));
+
+    });
+
+    return console.log('Client disconnected')
+  });
+
 });
