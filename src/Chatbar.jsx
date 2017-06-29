@@ -12,12 +12,10 @@ class Chatbar extends Component {
 
 
   handleUsernameChange(e) {
-    if (e.keyCode === 13) { // if Enter is pressed"
       let userName = e.target.value || "Anonymous"; //get user name OR if empty, set it to "Anonymous"
 
       this.props.onUserChange(userName)
 
-    }
   }
 
   handleMessageChange(e) {
@@ -42,7 +40,7 @@ class Chatbar extends Component {
   render() {
     return (
       <footer className="chatbar">
-        <input className="chatbar-username" placeholder="Your Name (Optional)" defaultValue={''} onKeyUp={this.handleUsernameChange}/>
+        <input className="chatbar-username" placeholder="Your Name (Optional)" defaultValue={''} onBlur={this.handleUsernameChange}/>
         <input className="chatbar-message" placeholder="Type a message and hit ENTER" defaultValue={''}  onKeyUp={this.handleMessageChange}/>
       </footer>
     );
