@@ -1,4 +1,6 @@
 const uuidv4 = require('uuid/v4');
+import $ from 'jquery';
+
 import React, {Component} from 'react';
 import Chatbar from './Chatbar.jsx';
 import MessageList from './MessageList.jsx';
@@ -11,7 +13,8 @@ class App extends React.Component {
     newMessage.id = uuidv4()
     newMessage.username = this.state.currentUser.name
     newMessage.type = 'postMessage'
-    //send message to the WebSocket
+
+    //send message to the WebSocket as a string
     this.socket.send(JSON.stringify(newMessage))
   }
 
@@ -40,25 +43,23 @@ class App extends React.Component {
 
 
   componentDidMount() {
-    //connect React app to the server (initiate the connection)
+    //connect React app to the chatty server
     this.socket = new WebSocket("ws://localhost:5657");
     console.log('Connected to server');
 
     this.socket.onopen = (e) => {
-      console.log("eeee", e);
       this.socket.onmessage = (event) => {
         let data = JSON.parse(event.data);
+
+
         if (data.type === "usercount") {
           this.setState({usersOnline: data.usersOnline})
         }
 
         this.setState({messages: this.state.messages.concat(data)})
-
       }
     }
-
   }
-
 
   render() {
     return (
@@ -75,6 +76,5 @@ class App extends React.Component {
     );
   }
 }
-
 
 export default App;

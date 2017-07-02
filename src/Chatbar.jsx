@@ -13,14 +13,11 @@ class Chatbar extends Component {
 
   handleUsernameChange(e) {
       let userName = e.target.value || "Anonymous"; //get user name OR if empty, set it to "Anonymous"
-
       this.props.onUserChange(userName)
-
   }
 
   handleMessageChange(e) {
-
-    if (e.keyCode === 13) { // if Enter is pressed
+    if (e.keyCode === 13) {
 
       let messageContent = e.target.value;
 
@@ -29,13 +26,9 @@ class Chatbar extends Component {
         content: messageContent
       })
 
-      //this.props.onUserChange
-
-      $(this).val(''); //set input to empty afterwards
+      $(this).val(''); //set input to empty message is sent
     }
   }
-
-
 
   render() {
     return (
@@ -45,7 +38,6 @@ class Chatbar extends Component {
       </footer>
     );
   }
-
 }
 
 export default Chatbar;

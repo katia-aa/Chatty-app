@@ -14,8 +14,6 @@ const server = express()
 // Create the WebSockets server
 const wss = new SocketServer({ server });
 
-
-
 wss.on('connection', (ws) => {
   console.log('Client connected');
 
@@ -26,13 +24,13 @@ wss.on('connection', (ws) => {
         "type": "usercount",
          "usersOnline" : wss.clients.size
      }));
+
   });
 
 
   //recieve message from App
   ws.on('message', function incoming(data) {
     let message = JSON.parse(data);
-    console.log(`Type: ${message.type} Message ID: ${message.id} Username: ${message.username} Message-content: ${message.content}`);
 
     switch(message.type) {
       case "postMessage":
@@ -63,12 +61,13 @@ wss.on('connection', (ws) => {
 
         client.send(JSON.stringify({
           "type": "usercount",
-           "usersOnline" : wss.clients.size
+          "usersOnline" : wss.clients.size
        }));
 
     });
 
-    return console.log('Client disconnected')
+    console.log('Client disconnected')
+    return
   });
 
 });
