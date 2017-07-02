@@ -1,19 +1,14 @@
-React Boilerplate
+Chatty App
 =====================
+Type away your adventures with Chatty. Chatty is a real time chat application built with React, Babel and WebPack. Chatty allows users to communicate with each other without having to register accounts.
 
-A minimal and light dev environment for ReactJS.
+### Final Result
+
+![image of homepage](https://github.com/kamir222/Chatty-app/blob/master/build/final-result.png)
 
 ### Usage
 
-Clone the boilerplate and create your own git repo.
-
-```
-git clone git@github.com:lighthouse-labs/react-simple-boilerplate.git
-cd react-simple-boilerplate
-git remote rm origin
-git remote add origin [YOUR NEW REPOSITORY]
-# Manually update your package.json file
-```
+--DONT FORGET TO TELL THEM ABOUT SPECIAL PORT SITUATION
 
 Install the dependencies and start the server.
 
@@ -21,25 +16,32 @@ Install the dependencies and start the server.
 npm install
 npm start
 open http://localhost:3000
+cd chatty_server
+npm start
 ```
 
-### Static Files
-
-You can store static files like images, fonts, etc in the `build` folder.
-
-For example, if you copy a file called my_image.png into the build folder you can access it using `http://localhost:3000/build/my_image.png`.
-
-### Linting
-
-This boilerplate project includes React ESLint configuration.
-
-```
-npm run lint
-```
 
 ### Dependencies
 
-* React
-* Webpack
-* [babel-loader](https://github.com/babel/babel-loader)
-* [webpack-dev-server](https://github.com/webpack/webpack-dev-server)
+* babel-core 6.23.1
+* babel-loader 6.3.1
+* babel-preset-es2015 6.22.0
+* babel-preset-react 6.23.0
+* babel-preset-stage-0 6.22.0
+* css-loader 0.26.1
+* eslint 3.15.0
+* eslint-plugin-react 6.9.0
+* ip ^1.1.5
+* node-sass 4.5.0
+* sass-loader 6.0.0
+* sockjs-client ^1.1.2
+* style-loader 0.13.1
+* webpack 2.2.1
+* webpack-dev-server 2.3.0
+* express 4.15.3
+* jquery ^3.2.1
+* node-uuid 1.4.8
+* react 15.4.2
+* react-dom 15.4.2
+* ws 3.0.0
+* node-uuid 1.4.8
