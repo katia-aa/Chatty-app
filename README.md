@@ -8,8 +8,6 @@ Type away your adventures with Chatty. Chatty is a real time chat application bu
 
 ### Usage
 
---DONT FORGET TO TELL THEM ABOUT SPECIAL PORT SITUATION
-
 Install the dependencies and start the server.
 
 ```
