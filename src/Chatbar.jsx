@@ -20,13 +20,12 @@ class Chatbar extends Component {
     if (e.keyCode === 13) {
 
       let messageContent = e.target.value;
-
       //message action
       this.props.onMessage({
         content: messageContent
       })
 
-      $(this).val(''); //set input to empty message is sent
+      $('.chatbar-message').val(''); //set input to empty message is sent
     }
   }
 
